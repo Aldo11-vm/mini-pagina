@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pregunta importante 👀</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #si {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #no {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #mensaje {
+      font-size: 22px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>¿Vamos a salir? 🥺👉👈</h1>
+    <div>
+      <button id="si">Sí 💚</button>
+      <button id="no">No 💔</button>
+    </div>
+    <div id="mensaje">🥰 Sabía que dirías que sí 💖</div>
+  </div>
+
+  <script>
+    const botonSi = document.getElementById("si");
+    const botonNo = document.getElementById("no");
+    const mensaje = document.getElementById("mensaje");
+
+    let tamañoSi = 1;
+    let tamañoNo = 1;
+
+    botonNo.addEventListener("click", () => {
+      tamañoSi += 0.2;
+      tamañoNo -= 0.1;
+
+      botonSi.style.transform = `scale(${tamañoSi})`;
+      botonNo.style.transform = `scale(${tamañoNo})`;
+
+      if (tamañoNo <= 0.5) {
+        botonNo.style.display = "none";
+      }
+    });
+
+    botonSi.addEventListener("click", () => {
+      mensaje.style.display = "block";
+      botonSi.style.display = "none";
+      botonNo.style.display = "none";
+    });
+  </script>
+
+</body>
+</html>
