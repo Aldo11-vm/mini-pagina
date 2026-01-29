@@ -1,94 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Pregunta importante 👀</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Pregunta seria 👀</title>
 
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    h1 {
-      margin-bottom: 20px;
-    }
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb);
+  background-size: 600% 600%;
+  animation: fondo 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
 
-    button {
-      font-size: 18px;
-      padding: 10px 25px;
-      margin: 10px;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+@keyframes fondo {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    #si {
-      background-color: #4CAF50;
-      color: white;
-    }
+.card {
+  background: white;
+  padding: 35px;
+  border-radius: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  text-align: center;
+  max-width: 320px;
+}
 
-    #no {
-      background-color: #f44336;
-      color: white;
-    }
+h1 {
+  margin-bottom: 25px;
+}
 
-    #mensaje {
-      font-size: 22px;
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
+button {
+  font-size: 18px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+#si {
+  background: #4CAF50;
+  color: white;
+}
+
+#no {
+  background: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+#mensaje {
+  display: none;
+  margin-top: 25px;
+  font-size: 22px;
+  color: #e91e63;
+}
+</style>
 </head>
+
 <body>
 
-  <div class="card">
-    <h1>¿Vamos a salir? 🥺👉👈</h1>
-    <div>
-      <button id="si">Sí 💚</button>
-      <button id="no">No 💔</button>
-    </div>
-    <div id="mensaje">🥰 Sabía que dirías que sí 💖</div>
+<div class="card">
+  <h1>¿Vamos a salir? 💖</h1>
+
+  <div>
+    <button id="si">Sí 😍</button>
+    <button id="no">No 🙄</button>
   </div>
 
-  <script>
-    const botonSi = document.getElementById("si");
-    const botonNo = document.getElementById("no");
-    const mensaje = document.getElementById("mensaje");
+  <div id="mensaje">
+    🎉💖 Sabía que dirías que sí 💖🎉 <br>
+    Prepárate, te debo una cita 😉
+  </div>
+</div>
 
-    let tamañoSi = 1;
-    let tamañoNo = 1;
+<script>
+const si = document.getElementById("si");
+const no = document.getElementById("no");
+const mensaje = document.getElementById("mensaje");
 
-    botonNo.addEventListener("click", () => {
-      tamañoSi += 0.2;
-      tamañoNo -= 0.1;
+let sizeSi = 1;
+let sizeNo = 1;
 
-      botonSi.style.transform = `scale(${tamañoSi})`;
-      botonNo.style.transform = `scale(${tamañoNo})`;
+no.addEventListener("click", () => {
+  sizeSi += 0.25;
+  sizeNo -= 0.15;
 
-      if (tamañoNo <= 0.5) {
-        botonNo.style.display = "none";
+  si.style.transform = `scale(${sizeSi})`;
+  no.style.transform = `scale(${sizeNo})`;
+
+  // botón NO huye
+  no.style.position = "absolute";
+  no.style.left = Math.random() * 200 + "px";
+  no.style.top = Math.random() * 200 + "px";
+
+  // vibración móvil
+  if (navigator.vibrate) {
+    navigator.vibrate(200);
+  }
+
+  if (sizeNo <= 0.4) {
+    no.style.display = "none";
+  }
+});
+
+si.addEventListener("click", () => {
+  mensaje.style.display = "block";
+  si.style.display = "none";
+  no.style.display = "none";
+
+  // vibración feliz
+  if (navigator.vibrate) {
+    navigator.vibrate([100, 50, 100]);
+  }
+
+  confetti();
+});
+
+// CONFETI 🎉
+function confetti() {
+  for (let i = 0; i < 100; i++) {
+    const c = document.createElement("div");
+    c.style.position = "fixed";
+    c.style.width = "10px";
+    c.style.height = "10px";
+    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.top = "-10px";
+    c.style.opacity = 0.8;
+    c.style.borderRadius = "50%";
+    c.style.zIndex = 9999;
+    document.body.appendChild(c);
+
+    let fall = setInterval(() => {
+      c.style.top = c.offsetTop + 5 + "px";
+      if (c.offsetTop > window.innerHeight) {
+        clearInterval(fall);
+        c.remove();
       }
-    });
-
-    botonSi.addEventListener("click", () => {
-      mensaje.style.display = "block";
-      botonSi.style.display = "none";
-      botonNo.style.display = "none";
-    });
-  </script>
+    }, 20);
+  }
+}
+</script>
 
 </body>
 </html>
